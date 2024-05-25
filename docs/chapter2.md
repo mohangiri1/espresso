@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Chapter 1: Getting Started
+title: Getting Started
 ---
 # Chapter 2: Getting Started
 
