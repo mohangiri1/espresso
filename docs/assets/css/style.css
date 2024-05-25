@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+}
+.sidebar {
+  width: 20%;
+  background: #f4f4f4;
+  padding: 20px;
+}
+.content {
+  width: 80%;
+  padding: 20px;
+}
+.toc ul {
+  list-style: none;
+  padding: 0;
+}
+.toc li {
+  margin: 10px 0;
+}
+.toc a {
+  text-decoration: none;
+  color: #0366d6;
+}
