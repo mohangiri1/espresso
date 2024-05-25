@@ -2,7 +2,6 @@
 layout: default
 title: Chapter 1: Getting Started
 ---
-
 # Chapter 1: Getting Started
 
 This is the content for the first chapter.
