@@ -1,0 +1,7 @@
+&dos
+	DeltaE = 0.1
+	emax = 20
+	emin = -20
+	prefix = 'GaAs'
+ 	outdir      = '../output/'
+/
