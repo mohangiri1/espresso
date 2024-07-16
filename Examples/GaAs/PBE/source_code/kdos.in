@@ -1,0 +1,9 @@
+&projwfc
+	DeltaE = 0.1
+	emax = 20
+	emin = -20
+	prefix = 'GaAs'
+	filproj = 'output'
+	kresolveddos = .true.
+ 	outdir      = '../output/'
+/

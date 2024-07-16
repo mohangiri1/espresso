@@ -1,0 +1,6 @@
+ &bands
+    prefix  = 'GaAs'
+    filband = 'bands.dat'
+    outdir      = '../output/'
+ /
+
