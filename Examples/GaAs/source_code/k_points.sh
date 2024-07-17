@@ -149,7 +149,7 @@ def exponential_decay_fit(energy, k_points):
     # Return the limit as x approaches infinity (C parameter) #Total Energy at ecut = infinity
     return result.params['C'].value
 
-def ecutwfc_accuracy_estimation(E_converged: float, number_of_atoms, E_inf: float):
+def k_accuracy_estimation(E_converged: float, number_of_atoms, E_inf: float):
     """
     Calculate the estimated energy calculation accuracy in milli-electron volts (meV).
 
@@ -176,13 +176,13 @@ if __name__ == "__main__":
     k_points, energy = read_convergence_data('convergence_data.txt')
     number_of_atoms = 2
     # Find convergence point
-    converged_k_points, converged_energy = find_convergence(k_points, energy, number_of_atoms, threshold=1e-4)
+    converged_k_points, converged_energy = find_convergence(k_points, energy, number_of_atoms, threshold=1e-3)
     
     # Fit the convergence data to predict the Total energy at k points = Infinity.
     E_inf = exponential_decay_fit(energy, k_points)
     
     #Estimate the accuracy of the convergence
-    accuracy = ecutwfc_accuracy_estimation(converged_energy, number_of_atoms, E_inf)
+    accuracy = k_accuracy_estimation(converged_energy, number_of_atoms, E_inf)
     
     # Plot convergence
     plot_convergence(k_points, energy, converged_k_points, converged_energy, accuracy)
