@@ -879,7 +879,7 @@ python $calculation.py
 tar -czvf results.tar.gz figure
 
 #Create a script for sending the email
-cat > email_result.sh <<EOF
+cat > email_result.sh <<'EOF'
 #!/bin/bash
 #$ -N SendEmail
 #$ -m bea
