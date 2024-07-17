@@ -85,8 +85,7 @@ done
 # Generate analyze_plot.py script
 cat > analyze_plot.py << 'EOF'
 import numpy as np
-import matplotlib.pyplot as plt
-import 
+import matplotlib.pyplot as plt 
 
 def read_data(filename):
     """
