@@ -233,7 +233,7 @@ cp -r output output_$calculation
 #calculation, occupations and k are to be changed in nscf calculation.
 calculation=nscf
 occupations='tetrahedra'
-k=24
+k=8
 cat > $calculation.in << EOF
 &CONTROL
   calculation = $calculation
@@ -294,7 +294,7 @@ cat > dos.in <<EOF
 /
 EOF
 # Run the dos calculation
-mpirun -np 32 dos.x <dos.in > dos.out
+dos.x <dos.in > dos.out
 
 #------------------------------------------PDOS------------------------------------------
 cat > pdos.in <<EOF
@@ -309,22 +309,22 @@ cat > pdos.in <<EOF
 EOF
 
 #Run projected dos calculation
-mpirun -np 32 projwfc.x <pdos.in> pdos.out
+projwfc.x <pdos.in> pdos.out
 
 #summing for the Ga s orbital:
-mpirun -np 32 sumpdos.x *\(Ga\)*\(s_j*\) > atom_Ga_s.dat
+sumpdos.x *\(Ga\)*\(s_j*\) > atom_Ga_s.dat
 
 #summing for the Ga p orbital:
-mpirun -np 32 sumpdos.x *\(Ga\)*\(p_j*\) > atom_Ga_p.dat
+sumpdos.x *\(Ga\)*\(p_j*\) > atom_Ga_p.dat
 
 #summing for the Ga d orbital:
-mpirun -np 32 sumpdos.x *\(Ga\)*\(d_j*\) > atom_Ga_d.dat
+sumpdos.x *\(Ga\)*\(d_j*\) > atom_Ga_d.dat
 
 #summing for the As s orbital:
-mpirun -np 32 sumpdos.x *\(As\)*\(s_j*\) > atom_As_s.dat
+sumpdos.x *\(As\)*\(s_j*\) > atom_As_s.dat
 
 #summing for the As p orbital:
-mpirun -np 32 sumpdos.x *\(As\)*\(p_j*\) > atom_As_p.dat
+sumpdos.x *\(As\)*\(p_j*\) > atom_As_p.dat
 
 #---------------------------------plot Dos--------------------------------------------------------------------------------------
 cat > dos_pdos_plot.py <<EOF
