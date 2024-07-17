@@ -122,6 +122,7 @@ EOF
 
 # Run SCF calculation.
 mpirun -np 32 pw.x < $calculation.in > $calculation.out
+cp $calculation.out ./figure/$calculation.out
 
 #Produce a Python file called $calculation.py for the plot.
 # Generate $calculation.py script
@@ -310,21 +311,27 @@ EOF
 
 #Run projected dos calculation
 projwfc.x <pdos.in> pdos.out
+cp pdos.out ./figure/pdos.out
 
 #summing for the Ga s orbital:
 sumpdos.x *\(Ga\)*\(s_j*\) > atom_Ga_s.dat
+cp atom_Ga_s.dat ./figure/atom_Ga_s.dat
 
 #summing for the Ga p orbital:
 sumpdos.x *\(Ga\)*\(p_j*\) > atom_Ga_p.dat
+cp atom_Ga_p.dat ./figure/atom_Ga_p.dat
 
 #summing for the Ga d orbital:
 sumpdos.x *\(Ga\)*\(d_j*\) > atom_Ga_d.dat
+cp atom_Ga_d.dat ./figure/atom_Ga_d.dat
 
 #summing for the As s orbital:
 sumpdos.x *\(As\)*\(s_j*\) > atom_As_s.dat
+cp atom_As_s.dat ./figure/atom_As_s.dat
 
 #summing for the As p orbital:
 sumpdos.x *\(As\)*\(p_j*\) > atom_As_p.dat
+cp atom_As_p.dat ./figure/atom_As_p.dat
 
 #---------------------------------plot Dos--------------------------------------------------------------------------------------
 cat > dos_pdos_plot.py <<EOF
@@ -693,7 +700,8 @@ EOF
 
 # Run bands calculation.
 mpirun -np 32 pw.x < $calculation.in > $calculation.out
-#Copy the pure scf calculation output in a directory called 'output_scf'
+cp $calculation.out ./figure/$calculation.out
+#Copy the pure bands calculation output in a directory called 'output_scf'
 cp -r output output_$calculation
 
 #-----------------------------------bands post processing ---bands.kp.in----------------------------------
@@ -705,7 +713,8 @@ cat > bands.kp.in <<EOF
  /
 EOF
 # Run the bands.x executable
-mpirun -np 32 bands.x < bands.kp.in > bands.kp.out 
+mpirun -np 32 bands.x < bands.kp.in > bands.kp.out
+cp bands.kp.out ./figure/bands.kp.out
 
 #--------------------------plot band structure-----------------------------------------------------------------
 #Produce a Python file called bands.py for the plot.
@@ -865,4 +874,23 @@ EOF
 # Plot the bandstructure
 source /home/girim/python_venv/my-python/bin/activate
 python $calculation.py
+
+# Compress the figures and the results.
+tar -czvf results.tar.gz figure
+
+#!/bin/bash
+#$ -N SendEmail
+#$ -m bea
+#$ -M user@domain.com
+
+# Variables
+recipient="mohan_giri1@baylor.edu"
+subject="Completion of the Run"
+body="The job in the HPC has been completed. The results are attached in the compressed file."
+attachment="results.tar.gz"
+
+# Send email
+echo -e "$body" | /usr/bin/mail -s "$subject" -a "$attachment" "$recipient"
+
+echo "Email has been sent to Mohan."
 
