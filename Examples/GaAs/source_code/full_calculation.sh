@@ -701,7 +701,7 @@ cat > bands.kp.in <<EOF
  &bands
     prefix  = 'GaAs'
     filband = 'bands.dat'
-    outdir      = '../output/'
+    outdir      = './output/'
  /
 EOF
 # Run the bands.x executable
