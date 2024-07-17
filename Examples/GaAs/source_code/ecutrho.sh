@@ -8,7 +8,7 @@ module load qe/7.0
 
 # Convergence test of rho cut-off energy.
 # Set a variable ecutrho from 4 times ecutwfc to 11 times ecutwfc Ry.
-ecutwfc = 80
+ecutwfc=80
 for ecutrho in 4 5 6 7 8 9 10 11 ; do
     # Make input file for the SCF calculation.
     # ecutrho is assigned by variable ecut.
