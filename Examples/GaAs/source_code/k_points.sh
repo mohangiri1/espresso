@@ -81,10 +81,11 @@ def read_convergence_data(file_path):
             energy.append(float(data[1]))
     return np.array(k_points), np.array(energy)
 
-def find_convergence(k_points, energy, threshold=1e-5):
+def find_convergence(k_points, energy, number_of_atoms, threshold=1e-5):
     """Find the convergence point where energy change is below a threshold."""
     energy_diff = np.diff(energy)
-    converged_idx = np.where(np.abs(energy_diff) < threshold)[0][0]
+    energy_diff_per_atom = np.abs(energy_diff)/number_of_atoms
+    converged_idx = np.where(np.abs(energy_diff_per_atom) < threshold)[0][0]
     return k_points[converged_idx], energy[converged_idx]
 
 def plot_convergence(k_points, energy, converged_k_points, converged_energy, accuracy):
@@ -96,7 +97,7 @@ def plot_convergence(k_points, energy, converged_k_points, converged_energy, acc
     plt.scatter(converged_k_points, converged_energy, color='red', label='Convergence Point')
     
     # Display convergence information in the legend
-    legend_text = f'\nk points = {converged_k_points}\nEnergy = {converged_energy}\nAccuracy = {accuracy} meV'
+    legend_text = f'\nk points = {converged_k_points}\nEnergy = {converged_energy}\nAccuracy = {accuracy} meV per atom'
     plt.legend([legend_text], title='Convergence Point', loc='upper right')
     
     plt.xlabel('K Points')
@@ -148,39 +149,40 @@ def exponential_decay_fit(energy, k_points):
     # Return the limit as x approaches infinity (C parameter) #Total Energy at ecut = infinity
     return result.params['C'].value
 
-def ecutwfc_accuracy_estimation(E_converged: float, E_inf: float):
+def ecutwfc_accuracy_estimation(E_converged: float, number_of_atoms, E_inf: float):
     """
     Calculate the estimated energy calculation accuracy in milli-electron volts (meV).
 
     Parameters:
     - E_converged (float): The converged energy value obtained from the calculation.
     - E_inf (float): The estimated energy at infinity obtained from a model or fitting.
+    - number_of_atoms (int): The number of atoms used in the calculation.
 
     Returns:
-    - accuracy in meV
+    - accuracy in meV per atom.
     
     This function calculates the estimated energy calculation accuracy in milli-electron volts (meV) based on the difference between the converged energy value and the estimated energy at infinity.
     """
 
-    accuracy_Ry = E_converged - E_inf #accuracy in Rydberg
+    accuracy_Ry = (E_converged - E_inf)/number_of_atoms #accuracy in Rydberg
     accuracy_eV = accuracy_Ry * 13.6057
     accuracy_meV = accuracy_eV*1000 # accuracy in meV
-    print(f"Estimated Energy calculation accuracy: {accuracy_meV} meV")
+    print(f"Estimated Energy calculation accuracy: {accuracy_meV} meV per atom")
     
     return accuracy_meV
 
 if __name__ == "__main__":
     # Read convergence data
     k_points, energy = read_convergence_data('convergence_data.txt')
-
+    number_of_atoms = 2
     # Find convergence point
-    converged_k_points, converged_energy = find_convergence(k_points, energy, threshold=1e-4)
+    converged_k_points, converged_energy = find_convergence(k_points, energy, number_of_atoms, threshold=1e-4)
     
     # Fit the convergence data to predict the Total energy at k points = Infinity.
     E_inf = exponential_decay_fit(energy, k_points)
     
     #Estimate the accuracy of the convergence
-    accuracy = ecutwfc_accuracy_estimation(converged_energy, E_inf)
+    accuracy = ecutwfc_accuracy_estimation(converged_energy, number_of_atoms, E_inf)
     
     # Plot convergence
     plot_convergence(k_points, energy, converged_k_points, converged_energy, accuracy)
