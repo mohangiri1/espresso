@@ -878,6 +878,8 @@ python $calculation.py
 # Compress the figures and the results.
 tar -czvf results.tar.gz figure
 
+#Create a script for sending the email
+cat > email_result.sh <<EOF
 #!/bin/bash
 #$ -N SendEmail
 #$ -m bea
@@ -893,4 +895,11 @@ attachment="results.tar.gz"
 echo -e "$body" | /usr/bin/mail -s "$subject" -a "$attachment" "$recipient"
 
 echo "Email has been sent to Mohan."
+EOF
+
+# make executable
+
+chmod +x email_result.sh
+#run the executable
+./email_result.sh
 
