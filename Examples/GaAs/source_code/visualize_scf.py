@@ -70,6 +70,7 @@ def plot_values(iteration_numbers, cpu_times, total_energies, scf_accuracies):
     plt.ylabel('SCF Accuracy (Ry)')
 
     plt.tight_layout()
+    plt.savefig('convergence_tracking.pdf')
     plt.show()
 
 def main(filename):
