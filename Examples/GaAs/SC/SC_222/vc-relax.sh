@@ -27,7 +27,7 @@ cat > vc-relax.in << EOF
   ibrav = 0
   celldm(1) = 21.2078512
   lspinorb = .TRUE.
-  nat = 2
+  nat = 16
   noncolin = .TRUE.
   ntyp = 2
   occupations = 'smearing'
@@ -47,7 +47,7 @@ cat > vc-relax.in << EOF
 /
 
 &cell
-    cell_dofree='ibrav'
+    cell_dofree='all'
     cell_dynamics = 'bfgs'
 /
 ATOMIC_SPECIES
@@ -57,9 +57,23 @@ ATOMIC_SPECIES
 K_POINTS {automatic}
   $k $k $k 0 0 0
 
-ATOMIC_POSITIONS (crystal)
-  Ga 0.0   0.0   0.0
-  As 0.25  0.25  0.25
+ATOMIC_POSITIONS {crystal}
+Ga      0.000000   0.000000   0.000000
+As      0.125000   0.125000   0.125000
+Ga      0.000000   0.000000   0.500001
+As      0.125000   0.125000   0.625001
+Ga      0.000000   0.500001   0.000000
+As      0.125000   0.625001   0.125000
+Ga      0.000000   0.500001   0.500001
+As      0.125000   0.625001   0.625001
+Ga      0.500001   0.000000   0.000000
+As      0.625001   0.125000   0.125000
+Ga      0.500001   0.000000   0.500001
+As      0.625001   0.125000   0.625001
+Ga      0.500001   0.500001   0.000000
+As      0.625001   0.625001   0.125000
+Ga      0.500001   0.500001   0.500001
+As      0.625001   0.625001   0.625001
 EOF
 
 # Run SCF calculation.
