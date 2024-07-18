@@ -303,8 +303,8 @@ cat > pdos.in <<EOF
 	DeltaE = 0.1
 	emax = 20
 	emin = -20
-	prefix = 'GaAs'
-	filproj = $prefix
+	prefix = $prefix
+	filproj = 'output'
  	outdir      = './output/'
 /
 EOF
@@ -334,7 +334,7 @@ sumpdos.x *\(As\)*\(p_j*\) > atom_As_p.dat
 cp atom_As_p.dat ./figure/atom_As_p.dat
 
 #---------------------------------plot Dos--------------------------------------------------------------------------------------
-cat > dos_pdos_plot.py <<EOF
+cat > dos_pdos_plot.py <<'EOF'
 #Projected Dos:
 
 import matplotlib.pyplot as plt
@@ -719,7 +719,7 @@ cp bands.kp.out ./figure/bands.kp.out
 #--------------------------plot band structure-----------------------------------------------------------------
 #Produce a Python file called bands.py for the plot.
 # Generate bands.py script
-cat > $calculation.py << EOF
+cat > $calculation.py << 'EOF'
 import matplotlib.pyplot as plt
 import numpy as np
 plt.style.use('sci.mplstyle')
