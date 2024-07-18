@@ -11,11 +11,11 @@ ecut=$(($ecutwfc*9))
 k=2
 calculation='vc-relax'
 
-cat > vc-relax.in << EOF
+cat > vc-relax444.in << EOF
 &CONTROL
   calculation = $calculation
   prefix = 'GaAs'
-  outdir = './output_vc/'
+  outdir = './output_vc444/'
   pseudo_dir = '/data/girim/Research/pseudopotential/LDA/'
   disk_io = 'none'
   tstress = .true.
@@ -198,4 +198,4 @@ CELL_PARAMETERS {alat}
 EOF
 
 # Run SCF calculation.
-mpirun -np 32 pw.x < vc-relax.in > vc-relax.out
+mpirun -np 32 pw.x < vc-relax444.in > vc-relax444.out
