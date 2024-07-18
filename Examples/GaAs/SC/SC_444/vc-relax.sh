@@ -199,3 +199,28 @@ EOF
 
 # Run SCF calculation.
 mpirun -np 32 pw.x < vc-relax444.in > vc-relax444.out
+
+#Create a script for sending the email
+cat > email_result.sh <<'EOF'
+#!/bin/bash
+#$ -N SendEmail
+#$ -m bea
+#$ -M user@domain.com
+
+# Variables
+recipient="mohan_giri1@baylor.edu"
+subject="Completion of the Run"
+body="The job in the HPC has been completed. The results are attached in the compressed file."
+attachment="vc-relax444.out"
+
+# Send email
+echo -e "$body" | /usr/bin/mail -s "$subject" -a "$attachment" "$recipient"
+
+echo "Email has been sent to Mohan."
+EOF
+
+# make executable
+
+chmod +x email_result.sh
+#run the executable
+./email_result.sh
