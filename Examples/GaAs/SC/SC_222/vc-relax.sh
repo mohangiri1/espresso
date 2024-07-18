@@ -8,7 +8,7 @@ module load qe/7.0
 
 ecutwfc=80
 ecut=$(($ecutwfc*9))
-k=2
+k=4
 calculation='vc-relax'
 
 cat > vc-relax.in << EOF
