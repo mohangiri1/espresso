@@ -15,9 +15,12 @@ cat > vc-relax.in << EOF
 &CONTROL
   calculation = $calculation
   prefix = 'GaAs'
-  outdir = './output/'
+  outdir = './output_vc/'
   pseudo_dir = '/data/girim/Research/pseudopotential/LDA/'
   disk_io = 'none'
+  tstress = .true.
+  tprnfor = .true.
+  restart_mode = 'from_scratch'
 /
 
 &SYSTEM
