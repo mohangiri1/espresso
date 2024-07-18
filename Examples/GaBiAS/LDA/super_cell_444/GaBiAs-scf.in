@@ -12,6 +12,7 @@
   ecutrho = 720
   ecutwfc = 80
   ibrav = 0
+  celldm(1) = 42.652465393
   lspinorb = .TRUE.
   nat = 128
   noncolin = .TRUE.
