@@ -48,7 +48,7 @@ ATOMIC_SPECIES
   Ga 69.72 Ga.rel-pz-dn-rrkjus_psl.0.2.UPF
 
 K_POINTS {automatic}
-  4 4 4 0 0 0
+  $k $k $k 0 0 0
 
 ATOMIC_POSITIONS (crystal)
   Ga 0.0   0.0   0.0
