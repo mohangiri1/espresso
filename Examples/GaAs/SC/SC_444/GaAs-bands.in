@@ -202,7 +202,7 @@ CELL_PARAMETERS {alat}
 EOF
 
 #Generate K points from python:
-cat > generate_k_points.py << 'EOF'
+cat > generate_kpoints.py << 'EOF'
 #!/usr/bin/env python3
 
 ### you need to install packages `banduppy` and `irrep` from pip
