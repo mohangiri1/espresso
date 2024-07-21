@@ -25,11 +25,11 @@ module load qe/7.0
 ecutwfc=80
 ecut=$(($ecutwfc*9))
 k=2
-calculation='bands'
+calculation=bands
 
 cat > GaAs-bands.in << EOF
 &CONTROL
-  calculation = $calculation
+  calculation = '$calculation'
   prefix = 'GaAs'
   outdir = './output444/'
   pseudo_dir = '/data/girim/Research/pseudopotential/LDA/'
@@ -255,7 +255,7 @@ python3 generate_kpoints.py
 
 # Run SCF calculation.
 mpirun -np 32 pw.x < GaAs-bands.in > GaAs-bands.out
-cat > banduppy_unfolding.py << 'EOF'
+cat > banduppy_unfolding.py <<'EOF'
 #!/usr/bin/env python3
 
 ### you need to install packages `banduppy` and `irrep` from pip
