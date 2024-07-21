@@ -10,7 +10,7 @@ import pickle
 
 QEpath = ""
 
-nproc = 16
+nproc = 32
 PWSCF = "mpirun -np {np}  {QEpath}/pw.x -nk {npk} -nb {npb}".format(np=nproc, QEpath=QEpath, npk=nproc/4, npb=4).split()
 
 #unfold_path = banduppy.UnfoldingPath(
@@ -25,18 +25,18 @@ PWSCF = "mpirun -np {np}  {QEpath}/pw.x -nk {npk} -nb {npb}".format(np=nproc, QE
 #)
 
 unfold_path = banduppy.UnfoldingPath(
-    supercell=[[2, 0, 0],
-               [0, 2, 0],
-               [0, 0, 2]],  # Supercell matrix for 2x2x2 supercell
+    supercell=[[4, 0, 0],
+               [0, 4, 0],
+               [0, 0, 4]],  # Supercell matrix for 2x2x2 supercell
     pathPBZ=[[0.5, 0, 0], [0, 0, 0], [0.5, 0.5, 0.5]],  # Path nodes in reduced coordinates in the PBZ
     nk=(30, 30, 30),  # Number of k-points in each segment
     labels="XGL"  # High-symmetry points
 )
 
 unfold = banduppy.Unfolding(
-    supercell=[[2, 0, 0],
-               [0, 2, 0],
-               [0, 0, 2]],  # Supercell matrix for 2x2x2 supercell
+    supercell=[[4, 0, 0],
+               [0, 4, 0],
+               [0, 0, 4]],  # Supercell matrix for 2x2x2 supercell
     kpointsPBZ=np.array([np.linspace(0.0, 0.5, 12)]*3).T  # Adjust k-points if needed
 )
 
