@@ -27,7 +27,7 @@ ecut=$(($ecutwfc*9))
 k=2
 calculation=bands
 
-cat > GaAs-bands.in << EOF
+cat > ./input/GaAs-bands.in << EOF
 &CONTROL
   calculation = '$calculation'
   prefix = 'GaAs'
@@ -202,6 +202,7 @@ CELL_PARAMETERS {alat}
 EOF
 
 #Generate K points from python:
+mkdir input
 cat > generate_kpoints.py << 'EOF'
 #!/usr/bin/env python3
 
@@ -243,8 +244,8 @@ unfold = banduppy.Unfolding(
 kpointsPBZ = unfold_path.kpoints_SBZ_str()
 
 pw_file = "GaAs"  # Use the appropriate input file name for GaAs
-#shutil.copy("input/" + pw_file + "-scf.in", ".")
-open(pw_file + "-bands.in", "w").write(open(pw_file + "-bands.in").read() + kpointsPBZ)
+shutil.copy("input/" + pw_file + "-scf.in", ".")
+open("./input/" + pw_file + "-bands.in", "w").write(open(pw_file + "-bands.in").read() + kpointsPBZ)
 EOF
 
 # Activate the Python virtual environment
