@@ -1,8 +1,8 @@
 #!/bin/sh
 #PBS -l nodes=1:ppn=32
-#PBS -o 3Bi.out
-#PBS -e 3Bi.err
-#PBS -N 3Bi
+#PBS -o 1Bi.out
+#PBS -e 1Bi.err
+#PBS -N 1Bi
 #PBS -m be -M mohan_giri1@baylor.edu
 echo "------------------"
 echo
