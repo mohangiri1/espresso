@@ -56,8 +56,9 @@ cat > scf444_3Bi.in << EOF
 
 &ELECTRONS
   conv_thr = 1e-08
-  electron_maxstep = 80
+  electron_maxstep = 200
   mixing_beta = 0.3
+  diago_david_ndim = 4
 /
 
 ATOMIC_SPECIES
