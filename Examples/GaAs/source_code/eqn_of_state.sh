@@ -1,8 +1,20 @@
+#!/bin/sh
+#PBS -l nodes=1:ppn=4
+#PBS -m be -M mohan_giri1@baylor.edu
+echo "------------------"
+echo
+echo "Job working directory: $PBS_O_WORKDIR"
+echo
 
-#!/bin/bash
+num=`cat $PBS_NODEFILE | wc -l`
+echo "Total processes: $num"
+echo
+
+echo "Job starting at `date`"
+echo
 
 # Get the current working directory and change to it
-cd /data/girim/Research/GaAs/convergence/geometric_optimize/
+cd $PBS_O_WORKDIR
 
 # Load the Quantum ESPRESSO module
 module load qe/7.0
