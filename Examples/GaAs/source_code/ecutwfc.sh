@@ -39,7 +39,7 @@ cat > ecut.$ecut.in << EOF
 
 &SYSTEM
   degauss = 0.002
-  #ecutrho = $((ecut*8))
+  !ecutrho = $((ecut*8))
   ecutrho = 1435
   ecutwfc = $ecut
   ibrav = 2
