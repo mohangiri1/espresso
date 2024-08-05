@@ -1,14 +1,27 @@
-#!/bin/bash
+#!/bin/sh
+#PBS -l nodes=1:ppn=4
+#PBS -m be -M mohan_giri1@baylor.edu
+echo "------------------"
+echo
+echo "Job working directory: $PBS_O_WORKDIR"
+echo
+
+num=`cat $PBS_NODEFILE | wc -l`
+echo "Total processes: $num"
+echo
+
+echo "Job starting at `date`"
+echo
 
 # Get the current working directory and change to it
-cd /data/girim/Research/GaAs/convergence/ecutwfc
+cd $PBS_O_WORKDIR
 
 # Load the Quantum ESPRESSO module
 module load qe/7.0
 
 # Define the starting and ending points for ecutwfc
 start_ecutwfc=30
-end_ecutwfc=120
+end_ecutwfc=100
 
 # Ensure the starting and ending points are multiples of 10
 start_ecutwfc=$(( (start_ecutwfc + 9) / 10 * 10 ))
@@ -26,10 +39,11 @@ cat > ecut.$ecut.in << EOF
 
 &SYSTEM
   degauss = 0.002
-  ecutrho = $((ecut*8))
+  #ecutrho = $((ecut*8))
+  ecutrho = 1435
   ecutwfc = $ecut
   ibrav = 2
-  celldm(1) = 10.7073764239
+  celldm(1) = 10.6039256
   lspinorb = .TRUE.
   nat = 2
   noncolin = .TRUE.
