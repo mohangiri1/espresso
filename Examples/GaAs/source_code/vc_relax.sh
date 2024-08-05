@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=1:ppn=4
+#PBS -l nodes=1:ppn=8
 #PBS -m be -M mohan_giri1@baylor.edu
 echo "------------------"
 echo
@@ -76,4 +76,4 @@ ATOMIC_POSITIONS (crystal)
 EOF
 
 # Run SCF calculation.
-mpirun -np 32 pw.x < vc-relax.in > vc-relax.out
+mpirun -np 8 pw.x < vc-relax.in > vc-relax.out
