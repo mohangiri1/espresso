@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=1:ppn=20
+#PBS -l nodes=1:ppn=36
 #PBS -o vc_relax.out
 #PBS -e vc_relax.err
 #PBS -N vc_rel
@@ -27,7 +27,7 @@ cd $PBS_O_WORKDIR
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=20   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=36   # Adjust this based on the number of nodes and processors per node
 
 mkdir vc_relax; cd vc_relax
 
