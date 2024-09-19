@@ -54,7 +54,7 @@ cat > vc-relax.in << EOF
   !ecutrho = $ecut
   ecutwfc = $ecutwfc
   ibrav = 2
-  celldm(1) = 10.7073764239
+  celldm(1) = 11.00
   lspinorb = .TRUE.
   nat = 2
   noncolin = .TRUE.
@@ -93,3 +93,4 @@ EOF
 
 # Run Quantum ESPRESSO (pw.x) with mpiexec using -bootstrap ssh
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x < vc-relax.in > vc-relax.out
+rm -r GaAs.save
