@@ -1,7 +1,9 @@
 #!/bin/sh
-#PBS -l nodes=1:ppn=16
-#PBS -o ecutrho.out
-#PBS -e ecutrho.err
+node=1
+ppns=16
+#PBS -l nodes=$node:ppn=$ppns
+#PBS -o ecutwfc.out
+#PBS -e ecutwfc.err
 #PBS -N wfc
 #PBS -m be -M mohan_giri1@baylor.edu
 echo "------------------"
@@ -27,7 +29,7 @@ cd $PBS_O_WORKDIR
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=80   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES= $(( $node * $ ppns))   # Adjust this based on the number of nodes and processors per node
 
 mkdir ecutwfc
 cd ecutwfc
