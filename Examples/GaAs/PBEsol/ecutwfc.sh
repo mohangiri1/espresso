@@ -39,18 +39,19 @@ end_ecutwfc=$(( (end_ecutwfc + 9) / 10 * 10 ))
 for ecut in $(seq $start_ecutwfc 10 $end_ecutwfc); do
 # Make input file for the SCF calculation.
 # ecutwfc is assigned by variable ecut.
+
 cat > ecut.$ecut.in << EOF
 &CONTROL
   calculation = 'scf'
   prefix = 'GaAs'
-  outdir = './output/'
-  pseudo_dir = '/data/girim/Research/pseudopotential/LDA/'
+  outdir = './'
+  pseudo_dir = './'
 /
 
 &SYSTEM
   degauss = 0.002
   !ecutrho = $((ecut*8))
-  ecutrho = 1435
+  !ecutrho = 1435
   ecutwfc = $ecut
   ibrav = 2
   celldm(1) = 10.6039256
@@ -71,8 +72,8 @@ cat > ecut.$ecut.in << EOF
 /
 
 ATOMIC_SPECIES
-  As 74.9216 As.rel-pz-n-rrkjus_psl.0.2.UPF
-  Ga 69.72 Ga.rel-pz-dn-rrkjus_psl.0.2.UPF
+  As 74.9216 As.upf
+  Ga 69.72 Ga.upf
 
 K_POINTS {automatic}
   4 4 4 0 0 0
@@ -81,6 +82,12 @@ ATOMIC_POSITIONS (crystal)
   Ga 0.0   0.0   0.0
   As 0.25  0.25  0.25
 EOF
+
+# Download the Pseudopotential files:
+wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/Ga.upf
+wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/Bi.upf
+wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/As.upf
+
 # Run SCF calculation: # Run Quantum ESPRESSO (pw.x) with mpiexec using -bootstrap ssh
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x <ecut.$ecut.in> ecut.$ecut.out
 
