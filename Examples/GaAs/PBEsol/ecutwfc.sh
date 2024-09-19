@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=4:ppn=16
+#PBS -l nodes=1:ppn=16
 #PBS -o ecutrho.out
 #PBS -e ecutrho.err
 #PBS -N wfc
@@ -28,6 +28,15 @@ HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
 NUM_PROCESSES=80   # Adjust this based on the number of nodes and processors per node
+
+mkdir ecutwfc
+cd ecutwfc
+
+# Download the Pseudopotential files:
+wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/Ga.upf
+wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/Bi.upf
+wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/As.upf
+
 
 # Define the starting and ending points for ecutwfc
 start_ecutwfc=30
@@ -82,11 +91,6 @@ ATOMIC_POSITIONS (crystal)
   Ga 0.0   0.0   0.0
   As 0.25  0.25  0.25
 EOF
-
-# Download the Pseudopotential files:
-wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/Ga.upf
-wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/Bi.upf
-wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/As.upf
 
 # Run SCF calculation: # Run Quantum ESPRESSO (pw.x) with mpiexec using -bootstrap ssh
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x <ecut.$ecut.in> ecut.$ecut.out
