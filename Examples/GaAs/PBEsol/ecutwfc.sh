@@ -1,7 +1,5 @@
 #!/bin/sh
-node=1
-ppns=16
-#PBS -l nodes=$node:ppn=$ppns
+#PBS -l nodes=1:ppn=20
 #PBS -o ecutwfc.out
 #PBS -e ecutwfc.err
 #PBS -N wfc
@@ -29,10 +27,9 @@ cd $PBS_O_WORKDIR
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES= $(( $node * $ppns))   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=20   # Adjust this based on the number of nodes and processors per node
 
-mkdir ecutwfc
-cd ecutwfc
+mkdir ecutwfc; cd ecutwfc
 
 # Download the Pseudopotential files:
 wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/Ga.upf
