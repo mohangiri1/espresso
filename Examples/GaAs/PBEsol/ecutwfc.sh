@@ -29,7 +29,7 @@ cd $PBS_O_WORKDIR
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES= $(( $node * $ ppns))   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES= $(( $node * $ppns))   # Adjust this based on the number of nodes and processors per node
 
 mkdir ecutwfc
 cd ecutwfc
