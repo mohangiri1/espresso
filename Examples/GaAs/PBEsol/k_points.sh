@@ -27,7 +27,7 @@ cd $PBS_O_WORKDIR
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=80   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=20   # Adjust this based on the number of nodes and processors per node
 
 mkdir k_points; cd k_points
 # Download the Pseudopotential files:
