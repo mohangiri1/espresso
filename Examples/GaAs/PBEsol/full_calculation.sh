@@ -100,7 +100,7 @@ EOF
 # -----------------------Setting the general parameters for the calculation common to all-------------------------------------
 ecutwfc=70
 !ecut=$(($ecutwfc*9))
-celldm1=10.62369735
+celldm1=10.7073764239
 prefix='GaAs'
 
 # ----------------------------Perform Scf Calculation ----------------------scf---------------------------------
@@ -263,7 +263,7 @@ cp -r output output_$calculation
 #calculation, occupations and k are to be changed in nscf calculation.
 calculation=nscf
 occupations='tetrahedra'
-k=24
+k=15
 cat > $calculation.in << EOF
 &CONTROL
   calculation = $calculation
