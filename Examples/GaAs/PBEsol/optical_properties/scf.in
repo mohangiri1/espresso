@@ -11,12 +11,12 @@
   ibrav = 0
   nat = 2
   ntyp = 2
-  nbnd = 40
+  nbnd = 50
   ecutwfc = 45
  ! celldm(1) = 10.7073764239
-  occupations = 'tetrahedra'
-  !smearing = 'gaussian'
-  !degauss = 0.002
+  occupations = 'smearing'
+  smearing = 'gaussian'
+  degauss = 0.002
   noncolin = .TRUE.
   lspinorb = .TRUE.
   nosym = .true.
