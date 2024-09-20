@@ -1,0 +1,40 @@
+&CONTROL
+  calculation = scf
+  prefix = GaAs
+  outdir = './'
+  pseudo_dir = '.'
+  verbosity = 'high'
+/
+
+&SYSTEM
+  !ecutrho = 
+  ecutwfc = 70
+  celldm(1) = 10.7073764239
+  ibrav = 2
+  nat = 2
+  ntyp = 2
+  occupations = 'smearing'
+  smearing = 'gaussian'
+  degauss = 0.002
+  noncolin = .TRUE.
+  lspinorb = .TRUE.
+  nosym = .true.
+  starting_magnetization(1) = 0.0000e+00
+/
+
+&ELECTRONS
+  conv_thr = 1e-08
+  electron_maxstep = 80
+  mixing_beta = 0.3
+/
+
+ATOMIC_SPECIES
+  As 74.9216 As.upf
+  Ga 69.72 Ga.upf
+
+K_POINTS {automatic}
+  8 8 8 0 0 0
+
+ATOMIC_POSITIONS (crystal)
+  Ga 0.0   0.0   0.0
+  As 0.25  0.25  0.25
