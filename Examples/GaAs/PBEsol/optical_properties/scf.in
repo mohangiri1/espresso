@@ -12,7 +12,7 @@
   nat = 2
   ntyp = 2
   nbnd = 60
-  ecutwfc = 60
+  ecutwfc = 70
  ! celldm(1) = 10.7073764239
   !occupations = 'smearing'
   !smearing = 'gaussian'
