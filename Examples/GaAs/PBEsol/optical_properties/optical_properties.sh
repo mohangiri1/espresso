@@ -29,7 +29,12 @@ HOSTFILE=$PBS_NODEFILE
 # Set the number of processes (total across nodes)
 NUM_PROCESSES=36   # Adjust this based on the number of nodes and processors per node
 
-#Download the input files
+# Download the Pseudopotential files:
+wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/Ga.upf
+wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/Bi.upf
+wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/As.upf
+
+# Download the input files:
 wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/optical_properties/scf.in
 wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/optical_properties/nscf.in
 wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/optical_properties/epsilon-jdos.in
