@@ -39,9 +39,26 @@ wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examp
 # Run the Codes for the calculation
 # mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x <scf.in> scf.out
 # mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x <nscf.in> nscf.out
+if [ $? ne 0]
+then
+  echo "epsilon is calculated"
+else
+  echo "epsilon calculation failed."
+fi
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE epsilon.x <epsilon.in> epsilon.out
+if [ $? ne 0]
+then
+  echo "epsilon is calculated"
+else
+  echo "epsilon calculation failed."
+fi
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE epsilon.x <epsilon-jdos.in> epsilon-jdos.out
-
+if [ $? ne 0]
+then
+  echo "JDOS is calculated"
+else
+  echo "JDOS calculation failed."
+fi
 # Plot the bandstructure
 source /home/girim/python_venv/my-python/bin/activate
 python epsilon_plot.py
@@ -51,3 +68,5 @@ python jdos_plot.py
 wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/email.sh
 
 chmod +xxx email.sh
+echo "Job finished at `date`"
+echo
