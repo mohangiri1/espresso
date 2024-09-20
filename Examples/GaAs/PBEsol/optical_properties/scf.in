@@ -12,7 +12,7 @@
   ntyp = 2
   nbnd = 100
   ecutwfc = 60
-  celldm(1) = 10.7073764239
+ ! celldm(1) = 10.7073764239
   occupations = 'smearing'
   smearing = 'gaussian'
   degauss = 0.002
