@@ -10,6 +10,7 @@
   ibrav = 0
   nat = 2
   ntyp = 2
+  nbnd = 100
   ecutwfc = 60
   celldm(1) = 10.7073764239
   occupations = 'smearing'
