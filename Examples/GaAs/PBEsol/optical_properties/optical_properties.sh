@@ -45,12 +45,12 @@ wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examp
 
 # Run the Codes for the calculation
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x <scf.in> scf.out
-mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x <nscf.in> nscf.out
+#mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x <nscf.in> nscf.out
 if [ $? ne 0]
 then
-  echo "epsilon is calculated"
+  echo "scf is calculated"
 else
-  echo "epsilon calculation failed."
+  echo "scf calculation failed."
 fi
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE epsilon.x <epsilon.in> epsilon.out
 if [ $? ne 0]
