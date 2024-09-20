@@ -1,8 +1,8 @@
 &CONTROL
-  calculation = scf
-  prefix = GaAs
+  calculation = 'scf'
+  prefix = 'GaAs'
   outdir = './'
-  pseudo_dir = '.'
+  pseudo_dir = './'
   !verbosity = 'high'
   wf_collect = .TRUE.
 /
