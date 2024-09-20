@@ -4,13 +4,14 @@
   outdir = './'
   pseudo_dir = '.'
   verbosity = 'high'
+  wf_collect = .TRUE.
 /
 
 &SYSTEM
   ibrav = 0
   nat = 2
   ntyp = 2
-  nbnd = 100
+  nbnd = 60
   ecutwfc = 60
  ! celldm(1) = 10.7073764239
   !occupations = 'smearing'
