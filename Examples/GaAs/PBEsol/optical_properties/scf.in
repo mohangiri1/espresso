@@ -14,7 +14,7 @@
   nbnd = 100
   ecutwfc = 70
  ! celldm(1) = 10.7073764239
-  !occupations = 'smearing'
+  occupations = 'fixed'
   !smearing = 'gaussian'
   !degauss = 0.002
   noncolin = .TRUE.
