@@ -20,6 +20,7 @@
   noncolin = .TRUE.
   lspinorb = .TRUE.
   nosym = .true.
+  noinv = .true.
   starting_magnetization(1) = 0.0000e+00
 /
 
