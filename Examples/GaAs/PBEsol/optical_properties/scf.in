@@ -14,7 +14,7 @@
   nbnd = 40
   ecutwfc = 45
  ! celldm(1) = 10.7073764239
-  occupations = 'fixed'
+  occupations = 'tetrahedra'
   !smearing = 'gaussian'
   !degauss = 0.002
   noncolin = .TRUE.
