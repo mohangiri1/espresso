@@ -3,7 +3,7 @@
   prefix = GaAs
   outdir = './'
   pseudo_dir = '.'
-  verbosity = 'high'
+  !verbosity = 'high'
   wf_collect = .TRUE.
 /
 
