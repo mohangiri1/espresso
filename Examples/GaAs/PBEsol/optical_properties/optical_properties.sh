@@ -74,7 +74,7 @@ python jdos_plot.py
 # Download the script to email the result
 wget https://raw.githubusercontent.com/mohangiri1/espresso/refs/heads/main/Examples/GaAs/PBEsol/email.sh
 
-rm -r GaAs.save
+#rm -r GaAs.save
 chmod +xxx email.sh
 echo "Job finished at `date`"
 echo
