@@ -10,5 +10,5 @@ intrasmear  = 0.1
 wmin        = 0.0
 wmax        = 10.0
 nw          = 500
-shift       = 1.0
+shift       = 0.0
 /
