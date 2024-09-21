@@ -5,10 +5,10 @@ calculation = 'jdos'
 /
 &ENERGY_GRID
 smeartype   = 'gauss'
-intersmear  = 0.15
-intrasmear  = 0.0
+intersmear  = 0.2
+intrasmear  = 0.1
 wmin        = 0.0
 wmax        = 10.0
 nw          = 500
-shift       = 0.0
+shift       = 1.0
 /
