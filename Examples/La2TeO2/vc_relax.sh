@@ -77,7 +77,7 @@ cat > vc-relax.in << EOF
 /
 
 &cell
-    cell_dofree='ibrav'
+    cell_dofree='all'
     cell_dynamics = 'bfgs'
 /
 
