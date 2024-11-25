@@ -102,6 +102,7 @@ for i in range(len(wavenumber)):
 
 w = np.linspace(min(wavenumber), max(wavenumber) + 100, 500)
 
+import matplotlib.pyplot as plt
 # Create figure object
 plt.figure()
 # Plot the non-resonant Raman
@@ -117,6 +118,29 @@ plt.tick_params(axis='x', which='both', top=False)
 plt.xlim(370, 420)
 # Save a figure to the pdf file
 plt.savefig('plot-raman.pdf')
+# Show plot
+plt.show()
+
+# For filtered output:
+wavenumber = wavenumber[intensity>10]
+intensity = intensity[intensity>10]
+w = np.linspace(min(wavenumber) - 50, max(wavenumber) + 50, 500)
+
+# Create figure object
+plt.figure()
+# Plot the non-resonant Raman
+plt.plot(w, fit(w,2, peaks), c='b')
+plt.plot(wavenumber, intensity,'o', c='r')
+# Add the x and y-axis labels
+plt.xlabel('Raman shift (cm$^{-1}$)')
+plt.ylabel('Intensity (a.u.)')
+# Hide y-axis minor ticks
+plt.tick_params(axis='y', which='both', right=False, left=False, labelleft=False)
+plt.tick_params(axis='x', which='both', top=False)
+# Set the axis limits
+#plt.xlim(370, 420)
+# Save a figure to the pdf file
+plt.savefig('filtered_plot-raman.pdf')
 # Show plot
 plt.show()
 EOF
