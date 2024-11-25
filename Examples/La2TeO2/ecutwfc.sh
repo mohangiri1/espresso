@@ -29,6 +29,11 @@ HOSTFILE=$PBS_NODEFILE
 # Set the number of processes (total across nodes)
 NUM_PROCESSES=32   # Adjust this based on the number of nodes and processors per node
 
+# Dowload the PPS
+wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pz-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
+
 # Define the starting and ending points for ecutwfc
 start_ecutwfc=30
 end_ecutwfc=100
@@ -79,9 +84,9 @@ CELL_PARAMETERS {angstrom}
   2.064109   2.064109  -6.563914
 
 ATOMIC_SPECIES
-La    138.90547  La.pbe-spfn-rrkjus_psl.1.0.0.UPF
-O      15.99940  O.pbe-n-rrkjus_psl.1.0.0.UPF
-Te    127.60000  Te.pbe-dn-rrkjus_psl.1.0.0.UPF
+La    138.90547  La.pz-hgh.UPF
+O      15.99940  O.pz-hgh.UPF
+Te    127.60000  Te.pz-hgh.UPF
 
 ATOMIC_POSITIONS {angstrom}
 La      2.064109   2.064109   2.088596
@@ -91,7 +96,7 @@ O       0.000000   2.064109   3.281957
 O       2.064109   0.000000   3.281957
 EOF
 # Run SCF calculation.
-mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE <ecut.$ecut.in> ecut.$ecut.out
+mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x <ecut.$ecut.in> ecut.$ecut.out
 # Write cut-off and total energies in convergence_data.txt.
 awk '/!/ {printf"%d %s\n",'$ecut',$5}' ecut.$ecut.out >> convergence_data.txt
 # End of for loop
@@ -220,7 +225,7 @@ if __name__ == "__main__":
     number_of_atoms = 2
 
     # Find convergence point
-    converged_ecutwfc, converged_energy = find_convergence(ecutwfc, energy, number_of_atoms, threshold = 1e-5)
+    converged_ecutwfc, converged_energy = find_convergence(ecutwfc, energy, number_of_atoms, threshold = 1e-3)
     
     # Fit the convergence data to predict the Total energy at ecutwfc = Infinity.
     E_inf = exponential_decay_fit(energy, ecutwfc)
