@@ -57,8 +57,6 @@ cat > scf.in << EOF
   nosym                     = .FALSE.
   nspin                     = 2
   ntyp                      = 3
-  occupations               = "smearing"
-  smearing                  = "marzari-vanderbilt"
   starting_magnetization(1) =  4.54545e-01
   starting_magnetization(2) =  1.00000e-01
   starting_magnetization(3) =  1.00000e-01
@@ -98,7 +96,7 @@ EOF
 cat > ph.in << EOF
 phonon calc.
 &INPUTPH
-outdir    = '.'
+outdir    = './output/'
 prefix    = 'La2TeO2'
 fildyn    = 'La2TeO2.dmat'
 tr2_ph    = 1d-14
