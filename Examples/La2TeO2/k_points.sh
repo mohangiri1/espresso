@@ -37,7 +37,7 @@ wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
 # Convergence test of k points.
 # Set a variable k.
 ecutwfc=100
-ecut=$(($ecutwfc*9))
+ecut=$(($ecutwfc*1))
 for k in 2 4 6 8 10 ; do
     # Make input file for the SCF calculation.
     # k is assigned by variable k.
