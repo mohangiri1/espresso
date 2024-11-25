@@ -95,7 +95,10 @@ phonon calc.
 outdir    = './output/'
 prefix    = 'La2TeO2'
 fildyn    = 'La2TeO2.dmat'
-tr2_ph    = 1d-14
+tr2_ph    = 1d-14,
+amass(1)  =  138.90547,
+amass(2)  =  15.99940,
+amass(3)  =  127.60000,
 epsil     = .true.
 lraman    = .true.
 trans     = .true.
