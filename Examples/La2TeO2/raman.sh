@@ -55,11 +55,7 @@ cat > scf.in << EOF
   ibrav                     = 0
   nat                       = 5
   nosym                     = .FALSE.
-  nspin                     = 2
   ntyp                      = 3
-  starting_magnetization(1) =  4.54545e-01
-  starting_magnetization(2) =  1.00000e-01
-  starting_magnetization(3) =  1.00000e-01
 /
 
 &ELECTRONS
