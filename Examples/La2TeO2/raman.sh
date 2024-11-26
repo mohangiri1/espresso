@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=1:ppn=16
+#PBS -l nodes=4:ppn=16
 #PBS -o raman.out
 #PBS -e raman.err
 #PBS -N raman
@@ -30,12 +30,12 @@ mkdir raman; cd raman
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=16   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=64   # Adjust this based on the number of nodes and processors per node
 
 # Dowload the PPS
-wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pbe-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pbe-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pz-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
 
 ecutwfc=100
 ecut=$(($ecutwfc*1))
@@ -75,21 +75,21 @@ K_POINTS {automatic}
   $k $k $k 0 0 0
 
 ATOMIC_SPECIES
-La    138.90547  La.pbe-hgh.UPF
-O      15.99940  O.pbe-hgh.UPF
-Te    127.60000  Te.pbe-hgh.UPF
+La    138.90547  La.pz-hgh.UPF
+O      15.99940  O.pz-hgh.UPF
+Te    127.60000  Te.pz-hgh.UPF
 
-CELL_PARAMETERS (angstrom)
-  -1.980786800   1.980786800   6.165608727
-   1.980786800  -1.980786800   6.165608727
-   1.980786800   1.980786800  -6.165608727
+CELL_PARAMETERS angstrom
+   -2.0641092700     2.0641092700     6.5639138000
+    2.0641092700    -2.0641092700     6.5639138000
+    2.0641092700     2.0641092700    -6.5639138000
 
-ATOMIC_POSITIONS (angstrom)
-La            1.9807867998        1.9807867998        1.8652581876
-La            0.0000000000        0.0000000000        4.3003505390
-O            -0.0000000000        1.9807867998        3.0828043633
-O             1.9807867998       -0.0000000000        3.0828043633
-Te           -0.0000000000       -0.0000000000        0.0000000000
+ATOMIC_POSITIONS angstrom
+La       2.0641092700     2.0641092700     2.0885956903
+La      -0.0000000000     0.0000000000     4.4753181097
+O       -0.0000000000     2.0641092700     3.2819569000
+O        2.0641092700     0.0000000000     3.2819569000
+Te       0.0000000000     0.0000000000     0.0000000000
 EOF
 
 # ---------------------------Create ph.in file------------------------------
