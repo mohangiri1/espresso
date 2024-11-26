@@ -2,7 +2,7 @@
 #PBS -l nodes=1:ppn=32
 #PBS -o ecut.out
 #PBS -e ecut.err
-#PBS -N 3Bi
+#PBS -N ecut
 #PBS -m be -M mohan_giri1@baylor.edu
 echo "------------------"
 echo
@@ -23,6 +23,9 @@ module load mpi
 # Get the current working directory and change to it
 cd $PBS_O_WORKDIR
 
+# Create a new folder and enter to that folder.
+mkdir ecut; cd ecut
+
 # Specify the hostfile (optional, if not provided by PBS)
 HOSTFILE=$PBS_NODEFILE
 
@@ -30,13 +33,13 @@ HOSTFILE=$PBS_NODEFILE
 NUM_PROCESSES=32   # Adjust this based on the number of nodes and processors per node
 
 # Dowload the PPS
-wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pz-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pbe-hgh.UPF
 
 # Define the starting and ending points for ecutwfc
 start_ecutwfc=30
-end_ecutwfc=100
+end_ecutwfc=150
 
 # Ensure the starting and ending points are multiples of 10
 start_ecutwfc=$(( (start_ecutwfc + 9) / 10 * 10 ))
@@ -58,13 +61,7 @@ cat > ecut.$ecut.in << EOF
   ibrav                     = 0
   nat                       = 5
   nosym                     = .FALSE.
-  nspin                     = 2
   ntyp                      = 3
-  occupations               = "smearing"
-  smearing                  = "marzari-vanderbilt"
-  starting_magnetization(1) =  4.54545e-01
-  starting_magnetization(2) =  1.00000e-01
-  starting_magnetization(3) =  1.00000e-01
 /
 
 &ELECTRONS
@@ -84,9 +81,9 @@ CELL_PARAMETERS {angstrom}
   2.064109   2.064109  -6.563914
 
 ATOMIC_SPECIES
-La    138.90547  La.pz-hgh.UPF
-O      15.99940  O.pz-hgh.UPF
-Te    127.60000  Te.pz-hgh.UPF
+La    138.90547  La.pbe-hgh.UPF
+O      15.99940  O.pbe-hgh.UPF
+Te    127.60000  Te.pbe-hgh.UPF
 
 ATOMIC_POSITIONS {angstrom}
 La      2.064109   2.064109   2.088596
@@ -243,3 +240,6 @@ EOF
 # Plot the Convergence
 source /home/girim/python_venv/my-python/bin/activate
 python analyze_plot.py
+
+# Go back to the original folder
+cd ..
