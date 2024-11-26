@@ -29,14 +29,17 @@ HOSTFILE=$PBS_NODEFILE
 # Set the number of processes (total across nodes)
 NUM_PROCESSES=64   # Adjust this based on the number of nodes and processors per node
 
-# Dowload the PPS
-wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pz-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
+# make a new folder and go to the folder.
+mkdir vc; cd vc
 
-ecutwfc=110
+# Dowload the PPS
+wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pbe-hgh.UPF
+
+ecutwfc=80
 ecut=$(($ecutwfc*1))
-k=8
+k=4
 calculation='vc-relax'
 
 cat > vc-relax.in << EOF
@@ -54,7 +57,6 @@ cat > vc-relax.in << EOF
   nat                       = 5
   nosym                     = .FALSE.
   ntyp                      = 3
-  occupations	=	'fixed'
 /
 
 &ELECTRONS
@@ -73,9 +75,9 @@ cat > vc-relax.in << EOF
 /
 
 ATOMIC_SPECIES
-La    138.90547  La.pz-hgh.UPF
-O      15.99940  O.pz-hgh.UPF
-Te    127.60000  Te.pz-hgh.UPF
+La    138.90547  La.pbe-hgh.UPF
+O      15.99940  O.pbe-hgh.UPF
+Te    127.60000  Te.pbe-hgh.UPF
 
 ATOMIC_POSITIONS angstrom
 La       2.0641092700     2.0641092700     2.0885956903
@@ -84,7 +86,7 @@ O       -0.0000000000     2.0641092700     3.2819569000
 O        2.0641092700     0.0000000000     3.2819569000
 Te       0.0000000000     0.0000000000     0.0000000000
 K_POINTS automatic
-11 11 7 0 0 0
+$k $k $k 0 0 0
 CELL_PARAMETERS angstrom
    -2.0641092700     2.0641092700     6.5639138000
     2.0641092700    -2.0641092700     6.5639138000
@@ -94,3 +96,6 @@ EOF
 
 # Run SCF calculation.
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x < vc-relax.in > vc-relax.out
+
+# Exit from the folder
+cd ..
