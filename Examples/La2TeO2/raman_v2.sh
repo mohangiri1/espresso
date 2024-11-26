@@ -23,6 +23,9 @@ module load mpi
 # Get the current working directory and change to it
 cd $PBS_O_WORKDIR
 
+# Create new folder and go to the folder
+mkdir raman; cd raman
+
 # Specify the hostfile (optional, if not provided by PBS)
 HOSTFILE=$PBS_NODEFILE
 
@@ -46,25 +49,20 @@ cat > scf.in << EOF
   prefix = 'La2TeO2'
   outdir = './output/'
   pseudo_dir = './'
+  tstress = '.true.'
+  tprnfor = '.true.'
 /
 
 &SYSTEM
   ecutwfc = $ecut
-  degauss                   =  2.00000e-02
   ibrav                     = 0
   nat                       = 5
   nosym                     = .FALSE.
   ntyp                      = 3
-  nspin = 2,  
-  starting_magnetization(1) = 0.5
-  occupations = 'smearing'
-  degauss = 0.002
-  smearing = 'gaussian'
-
 /
 
 &ELECTRONS
-    conv_thr         =  1.00000e-09
+    conv_thr         =  1.00000e-10
     electron_maxstep = 80
     mixing_beta      =  4.00000e-01
 /
@@ -78,17 +76,18 @@ La    138.90547  La.pz-hgh.UPF
 O      15.99940  O.pz-hgh.UPF
 Te    127.60000  Te.pz-hgh.UPF
 
-CELL_PARAMETERS (angstrom)
-  -1.949634763   1.949634763   6.052313028
-   1.949634763  -1.949634763   6.052313028
-   1.949634763   1.949634763  -6.052313028
+CELL_PARAMETERS angstrom
+   -2.0594480000     2.0594480000     6.5440100000
+    2.0594480000    -2.0594480000     6.5440100000
+    2.0594480000     2.0594480000    -6.5440100000
 
-ATOMIC_POSITIONS (angstrom)
-La            1.9496347632        1.9496347632        1.8185905874
-La           -0.0000000000        0.0000000000        4.2337224401
-Te            0.0000000000        0.0000000000        0.0000000000
-O            -0.0000000000        1.9496347632        3.0261565138
-O             1.9496347632        0.0000000000        3.0261565138
+ATOMIC_POSITIONS angstrom
+La       2.0594480000     2.0594480000     2.0822624275
+La      -0.0000000000     0.0000000000     4.4617475725
+O       -0.0000000000     2.0594480000     3.2720050000
+O        2.0594480000     0.0000000000     3.2720050000
+Te       0.0000000000     0.0000000000     0.0000000000
+
 EOF
 
 # ---------------------------Create ph.in file------------------------------
@@ -102,7 +101,7 @@ tr2_ph    = 1d-14,
 amass(1)  =  138.90547,
 amass(2)  =  15.99940,
 amass(3)  =  127.60000,
-epsil     = .false.
+epsil     = .true.
 lraman    = .true.
 trans     = .true.
 asr       = .true.
@@ -241,3 +240,6 @@ EOF
 # Plot the Raman
 source /home/girim/python_venv/my-python/bin/activate
 python raman_plots.py
+
+# Exit the folder
+cd ..
