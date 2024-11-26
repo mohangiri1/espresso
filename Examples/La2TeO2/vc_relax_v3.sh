@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=2:ppn=32
+#PBS -l nodes=1:ppn=16
 #PBS -o vc.out
 #PBS -e vc.err
 #PBS -N vc
@@ -27,7 +27,7 @@ cd $PBS_O_WORKDIR
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=64   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=16   # Adjust this based on the number of nodes and processors per node
 
 # make a new folder and go to the folder.
 mkdir vc; cd vc
