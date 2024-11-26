@@ -23,6 +23,9 @@ module load mpi
 # Get the current working directory and change to it
 cd $PBS_O_WORKDIR
 
+# Create a new folder and go to the folder.
+mkdir k_points; cd k_points
+
 # Specify the hostfile (optional, if not provided by PBS)
 HOSTFILE=$PBS_NODEFILE
 
@@ -36,7 +39,7 @@ wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
 
 # Convergence test of k points.
 # Set a variable k.
-ecutwfc=100
+ecutwfc=50
 ecut=$(($ecutwfc*1))
 for k in 2 4 6 8 10 ; do
     # Make input file for the SCF calculation.
@@ -55,13 +58,7 @@ for k in 2 4 6 8 10 ; do
   ibrav                     = 0
   nat                       = 5
   nosym                     = .FALSE.
-  nspin                     = 2
   ntyp                      = 3
-  occupations               = "smearing"
-  smearing                  = "marzari-vanderbilt"
-  starting_magnetization(1) =  4.54545e-01
-  starting_magnetization(2) =  1.00000e-01
-  starting_magnetization(3) =  1.00000e-01
 /
 
 &ELECTRONS
@@ -82,9 +79,9 @@ CELL_PARAMETERS {angstrom}
   2.064109   2.064109  -6.563914
 
 ATOMIC_SPECIES
-La    138.90547  La.pz-hgh.UPF
-O      15.99940  O.pz-hgh.UPF
-Te    127.60000  Te.pz-hgh.UPF
+La    138.90547  La.pbe-hgh.UPF
+O      15.99940  O.pbe-hgh.UPF
+Te    127.60000  Te.pbe-hgh.UPF
 
 ATOMIC_POSITIONS {angstrom}
 La      2.064109   2.064109   2.088596
@@ -232,3 +229,6 @@ EOF
 # Plot the Convergence
 source /home/girim/python_venv/my-python/bin/activate
 python analyze_plot.py
+
+# Exit from the folder:
+cd ..
