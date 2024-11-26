@@ -58,11 +58,6 @@ cat > vc-relax.in << EOF
   nat                       = 5
   nosym                     = .FALSE.
   ntyp                      = 3
-  starting_magnetization(1) =   4.5454545455d-01
-  starting_magnetization(2) =   1.0000000000d-01
-  starting_magnetization(3) =   1.0000000000d-01
-  nspin = 2
-  tot_magnetization = 0.0
 /
 
 &ELECTRONS
@@ -76,7 +71,7 @@ cat > vc-relax.in << EOF
 /
 
 &cell
-    cell_dofree='volume'
+    cell_dofree='all'
     cell_dynamics = 'bfgs'
     press = 0.0
     press_conv_thr = 0.5
