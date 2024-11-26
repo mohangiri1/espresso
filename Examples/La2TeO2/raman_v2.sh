@@ -56,10 +56,10 @@ cat > scf.in << EOF
   nosym                     = .FALSE.
   ntyp                      = 3
   nspin = 2,  
-  starting_magnetization(1)=0.7,
-  occupations='smearing', 
-  smearing='marzari-vanderbilt', 
-  degauss=0.02
+  starting_magnetization(1) = 0.5
+  occupations = 'smearing'
+  degauss = 0.002
+  smearing = 'gaussian'
 
 /
 
