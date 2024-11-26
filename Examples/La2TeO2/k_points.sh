@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=1:ppn=32
+#PBS -l nodes=1:ppn=16
 #PBS -o k_points.out
 #PBS -e k_points.err
 #PBS -N k_points
@@ -30,12 +30,12 @@ mkdir k_points; cd k_points
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=32   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=16   # Adjust this based on the number of nodes and processors per node
 
 # Dowload the PPS
-wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pz-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pbe-hgh.UPF
 
 # Convergence test of k points.
 # Set a variable k.
