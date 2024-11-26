@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=1:ppn=32
+#PBS -l nodes=1:ppn=8
 #PBS -o ecut.out
 #PBS -e ecut.err
 #PBS -N ecut
@@ -30,7 +30,7 @@ mkdir ecut; cd ecut
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=32   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=8   # Adjust this based on the number of nodes and processors per node
 
 # Dowload the PPS
 wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pbe-hgh.UPF
