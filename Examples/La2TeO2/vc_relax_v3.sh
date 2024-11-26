@@ -35,7 +35,7 @@ mkdir vc; cd vc
 # Dowload the PPS
 wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
 wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pz-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/pz.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
 
 ecutwfc=100
 ecut=$(($ecutwfc*1))
