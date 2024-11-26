@@ -34,7 +34,7 @@ wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
 wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pz-hgh.UPF
 wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
 
-ecutwfc=100
+ecutwfc=110
 ecut=$(($ecutwfc*1))
 k=8
 calculation='vc-relax'
@@ -50,11 +50,11 @@ cat > vc-relax.in << EOF
 
 &SYSTEM
   ecutwfc = $ecut
-  degauss                   =  2.00000e-02
   ibrav                     = 0
   nat                       = 5
   nosym                     = .FALSE.
   ntyp                      = 3
+  occupations	=	'fixed'
 /
 
 &ELECTRONS
