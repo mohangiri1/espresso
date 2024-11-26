@@ -49,22 +49,18 @@ cat > vc-relax.in << EOF
 /
 
 &SYSTEM
-  degauss = 0.002
   ecutwfc = $ecut
   degauss                   =  2.00000e-02
   ibrav                     = 0
   nat                       = 5
   nosym                     = .FALSE.
   ntyp                      = 3
-  occupations               = "fixed"
 /
 
 &ELECTRONS
     conv_thr         =  1.00000e-09
     electron_maxstep = 80
     mixing_beta      =  4.00000e-01
-    startingpot      = "atomic"
-    startingwfc      = "atomic+random"
 /
 
 &ions
@@ -76,25 +72,26 @@ cat > vc-relax.in << EOF
     cell_dynamics = 'bfgs'
 /
 
+
 K_POINTS {automatic}
-  $k $k $k 0 0 0
+11 11  7  0 0 0
 
 CELL_PARAMETERS {angstrom}
- -2.064109   2.064109   6.563914
-  2.064109  -2.064109   6.563914
-  2.064109   2.064109  -6.563914
+  4.128219  -0.000000  -0.000000
+  0.000000   4.128219   0.000000
+ -2.064109  -2.064109   6.563914
 
 ATOMIC_SPECIES
 La    138.90547  La.pz-hgh.UPF
 O      15.99940  O.pz-hgh.UPF
 Te    127.60000  Te.pz-hgh.UPF
 
-ATOMIC_POSITIONS {angstrom}
-La      2.064109   2.064109   2.088596
-La      0.000000  -0.000000   4.475318
+ATOMIC_POSITIONS {crystal}
+La      0.659097   0.659097   0.318194
+La      0.340903   0.340903   0.681806
+O       0.250000   0.750000   0.500000
+O       0.750000   0.250000   0.500000
 Te      0.000000   0.000000   0.000000
-O       0.000000   2.064109   3.281957
-O       2.064109   0.000000   3.281957
 EOF
 # This calculation doesn't involve magnetic phenomenon.
 
