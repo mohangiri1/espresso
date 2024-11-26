@@ -37,7 +37,7 @@ wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pbe-hgh.UPF
 wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pbe-hgh.UPF
 wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pbe-hgh.UPF
 
-ecutwfc=80
+ecutwfc=100
 ecut=$(($ecutwfc*1))
 k=4
 calculation='vc-relax'
@@ -48,6 +48,7 @@ cat > vc-relax.in << EOF
   prefix = 'La2TeO2'
   outdir = './output/'
   pseudo_dir = './'
+  forc_conv_thr = 0.001
   disk_io = 'none'
 /
 
@@ -57,10 +58,15 @@ cat > vc-relax.in << EOF
   nat                       = 5
   nosym                     = .FALSE.
   ntyp                      = 3
+  starting_magnetization(1) =   4.5454545455d-01
+  starting_magnetization(2) =   1.0000000000d-01
+  starting_magnetization(3) =   1.0000000000d-01
+  nspin = 2
+  tot_magnetization = 0.0
 /
 
 &ELECTRONS
-    conv_thr         =  1.00000e-09
+    conv_thr         =  1.00000e-10
     electron_maxstep = 80
     mixing_beta      =  4.00000e-01
 /
@@ -72,6 +78,8 @@ cat > vc-relax.in << EOF
 &cell
     cell_dofree='all'
     cell_dynamics = 'bfgs'
+    press = 0.0
+    press_conv_thr = 0.5
 /
 
 ATOMIC_SPECIES
