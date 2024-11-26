@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=2:ppn=32
+#PBS -l nodes=1:ppn=32
 #PBS -o raman.out
 #PBS -e raman.err
 #PBS -N raman
@@ -27,12 +27,12 @@ cd $PBS_O_WORKDIR
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=64   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=32   # Adjust this based on the number of nodes and processors per node
 
 # Dowload the PPS
-wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pz-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pz-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pbe-hgh.UPF
 
 ecutwfc=100
 ecut=$(($ecutwfc*1))
@@ -68,9 +68,9 @@ K_POINTS {automatic}
   $k $k $k 0 0 0
 
 ATOMIC_SPECIES
-La    138.90547  La.pz-hgh.UPF
-O      15.99940  O.pz-hgh.UPF
-Te    127.60000  Te.pz-hgh.UPF
+La    138.90547  La.pbe-hgh.UPF
+O      15.99940  O.pbe-hgh.UPF
+Te    127.60000  Te.pbe-hgh.UPF
 
 CELL_PARAMETERS (angstrom)
   -1.949634763   1.949634763   6.052313028
