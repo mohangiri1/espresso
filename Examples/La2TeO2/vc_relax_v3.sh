@@ -33,9 +33,9 @@ NUM_PROCESSES=16   # Adjust this based on the number of nodes and processors per
 mkdir vc; cd vc
 
 # Dowload the PPS
-wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pbe-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pbe-hgh.UPF
-wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pbe-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/O.pz-hgh.UPF
+wget https://pseudopotentials.quantum-espresso.org/upf_files/pz.pbe-hgh.UPF
 
 ecutwfc=100
 ecut=$(($ecutwfc*1))
@@ -76,16 +76,16 @@ cat > vc-relax.in << EOF
 /
 
 &cell
-    cell_dofree='all'
+    cell_dofree='volume'
     cell_dynamics = 'bfgs'
     press = 0.0
     press_conv_thr = 0.5
 /
 
 ATOMIC_SPECIES
-La    138.90547  La.pbe-hgh.UPF
-O      15.99940  O.pbe-hgh.UPF
-Te    127.60000  Te.pbe-hgh.UPF
+La    138.90547  La.pz-hgh.UPF
+O      15.99940  O.pz-hgh.UPF
+Te    127.60000  Te.pz-hgh.UPF
 
 ATOMIC_POSITIONS angstrom
 La       2.0641092700     2.0641092700     2.0885956903
