@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=4:ppn=16
+#PBS -l nodes=1:ppn=16
 #PBS -o raman.out
 #PBS -e raman.err
 #PBS -N raman
@@ -30,7 +30,7 @@ mkdir raman; cd raman
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=64   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=1   # Adjust this based on the number of nodes and processors per node
 
 # Dowload the PPS
 wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
@@ -57,11 +57,6 @@ cat > scf.in << EOF
   nat                       = 5
   nosym                     = .FALSE.
   ntyp                      = 3
-  starting_magnetization(1) =   4.5454545455d-01
-  starting_magnetization(2) =   1.0000000000d-01
-  starting_magnetization(3) =   1.0000000000d-01
-  nspin = 2
-  tot_magnetization = 0.0
 /
 
 &ELECTRONS
