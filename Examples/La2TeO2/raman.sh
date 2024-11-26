@@ -1,5 +1,5 @@
 #!/bin/sh
-#PBS -l nodes=1:ppn=32
+#PBS -l nodes=1:ppn=16
 #PBS -o raman.out
 #PBS -e raman.err
 #PBS -N raman
@@ -23,11 +23,14 @@ module load mpi
 # Get the current working directory and change to it
 cd $PBS_O_WORKDIR
 
+# Create new folder and go to the folder
+mkdir raman; cd raman
+
 # Specify the hostfile (optional, if not provided by PBS)
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=32   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=16   # Adjust this based on the number of nodes and processors per node
 
 # Dowload the PPS
 wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pbe-hgh.UPF
@@ -36,7 +39,7 @@ wget https://pseudopotentials.quantum-espresso.org/upf_files/La.pbe-hgh.UPF
 
 ecutwfc=100
 ecut=$(($ecutwfc*1))
-k=8
+k=4
 calculation='scf'
 
 # ---------------------Create Scf file-------------------------------
@@ -50,11 +53,15 @@ cat > scf.in << EOF
 
 &SYSTEM
   ecutwfc = $ecut
-  degauss                   =  2.00000e-02
   ibrav                     = 0
   nat                       = 5
   nosym                     = .FALSE.
   ntyp                      = 3
+  starting_magnetization(1) =   4.5454545455d-01
+  starting_magnetization(2) =   1.0000000000d-01
+  starting_magnetization(3) =   1.0000000000d-01
+  nspin = 2
+  tot_magnetization = 0.0
 /
 
 &ELECTRONS
@@ -73,16 +80,16 @@ O      15.99940  O.pbe-hgh.UPF
 Te    127.60000  Te.pbe-hgh.UPF
 
 CELL_PARAMETERS (angstrom)
-  -1.949634763   1.949634763   6.052313028
-   1.949634763  -1.949634763   6.052313028
-   1.949634763   1.949634763  -6.052313028
+  -1.980786800   1.980786800   6.165608727
+   1.980786800  -1.980786800   6.165608727
+   1.980786800   1.980786800  -6.165608727
 
 ATOMIC_POSITIONS (angstrom)
-La            1.9496347632        1.9496347632        1.8185905874
-La           -0.0000000000        0.0000000000        4.2337224401
-Te            0.0000000000        0.0000000000        0.0000000000
-O            -0.0000000000        1.9496347632        3.0261565138
-O             1.9496347632        0.0000000000        3.0261565138
+La            1.9807867998        1.9807867998        1.8652581876
+La            0.0000000000        0.0000000000        4.3003505390
+O            -0.0000000000        1.9807867998        3.0828043633
+O             1.9807867998       -0.0000000000        3.0828043633
+Te           -0.0000000000       -0.0000000000        0.0000000000
 EOF
 
 # ---------------------------Create ph.in file------------------------------
@@ -235,3 +242,6 @@ EOF
 # Plot the Raman
 source /home/girim/python_venv/my-python/bin/activate
 python raman_plots.py
+
+# Exit the folder
+cd ..
