@@ -205,7 +205,7 @@ plt.ylabel('Intensity (a.u.)')
 plt.tick_params(axis='y', which='both', right=False, left=False, labelleft=False)
 plt.tick_params(axis='x', which='both', top=False)
 # Set the axis limits
-plt.xlim(370, 420)
+#plt.xlim(370, 420)
 # Save a figure to the pdf file
 plt.savefig('plot-raman.pdf')
 # Show plot
