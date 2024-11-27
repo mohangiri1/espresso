@@ -46,7 +46,7 @@ calculation='scf'
 cat > scf.in << EOF
 &CONTROL
   calculation = $calculation
-  prefix = 'La2TeO2'
+  prefix = 'La2TeO6'
   outdir = './output/'
   pseudo_dir = './'
 /
@@ -146,7 +146,7 @@ asr    = 'crystal'
 EOF
 
 # Run calculation.
-mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE pw.x < $calculation.in > $calculation.out
+mpiexec -bootstrap ssh -np 32 -hostfile $HOSTFILE pw.x < $calculation.in > $calculation.out
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE ph.x < ph.in > ph.out
 mpiexec -bootstrap ssh -np $NUM_PROCESSES -hostfile $HOSTFILE dynmat.x < dynmat.in > dynmat.out
 
