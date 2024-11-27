@@ -49,8 +49,8 @@ cat > scf.in << EOF
   prefix = 'La2TeO2'
   outdir = './output/'
   pseudo_dir = './'
-  tstress = '.true.'
-  tprnfor = '.true.'
+  !tstress = .true.
+  !tprnfor = .true.
 /
 
 &SYSTEM
