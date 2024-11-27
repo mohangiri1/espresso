@@ -30,7 +30,7 @@ mkdir raman; cd raman
 HOSTFILE=$PBS_NODEFILE
 
 # Set the number of processes (total across nodes)
-NUM_PROCESSES=1   # Adjust this based on the number of nodes and processors per node
+NUM_PROCESSES=64   # Adjust this based on the number of nodes and processors per node
 
 # Dowload the PPS
 wget https://pseudopotentials.quantum-espresso.org/upf_files/Te.pz-hgh.UPF
